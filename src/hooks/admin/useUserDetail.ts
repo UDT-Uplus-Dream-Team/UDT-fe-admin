@@ -1,4 +1,4 @@
-import { getUserDetail } from '@/lib/apis/admin/getUserDetail';
+import { getUserDetail } from '@lib/apis/admin/getUserDetail';
 import { useQuery } from '@tanstack/react-query';
 
 export const useUserDetail = (userId: number, enabled = true) => {

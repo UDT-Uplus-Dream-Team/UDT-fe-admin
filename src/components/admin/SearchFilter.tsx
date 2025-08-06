@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@components/ui/select';
-import { CONTENT_CATEGORIES } from '@/constants';
+import { CONTENT_CATEGORIES } from '@constants/index';
 
 interface SearchFilterProps {
   filterType: string;

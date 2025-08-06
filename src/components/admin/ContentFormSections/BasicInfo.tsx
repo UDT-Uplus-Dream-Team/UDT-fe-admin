@@ -13,7 +13,7 @@ import {
 } from '@components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card';
 import { Upload, Image as ImageIcon } from 'lucide-react';
-import { RATING_OPTIONS } from '@/constants';
+import { RATING_OPTIONS } from '@constants/index';
 import Image from 'next/image';
 import type { ContentWithoutId } from '@type/admin/Content';
 import type { UseMutationResult } from '@tanstack/react-query';

@@ -2,12 +2,13 @@ import type { Metadata, Viewport } from 'next';
 import Providers from './providers';
 import './globals.css';
 import { Toaster } from 'sonner';
-import { AuthToastHandler } from '@/components/common/AuthToastHandler';
+import { AuthToastHandler } from '@components/common/AuthToastHandler';
 import { GoogleAnalytics } from '@next/third-parties/google'; // 구글 애널리틱스 추가
 
 export const metadata: Metadata = {
-  title: '반딧불',
-  description: '30초만에 수많은 OTT 콘텐츠 숲을 밝히는 작은 빛',
+  title: '반딧불 - 관리자',
+  description:
+    '30초만에 수많은 OTT 콘텐츠 숲을 밝히는 작은 빛 - 반딧불의 관리자 페이지',
 };
 
 export const viewport: Viewport = {

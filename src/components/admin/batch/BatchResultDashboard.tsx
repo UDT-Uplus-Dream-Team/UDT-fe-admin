@@ -1,7 +1,7 @@
-import { BatchResultDashboardTable } from '@components/admin/BatchResultDashboardTable';
-import { FailedJobsTable } from '@components/admin/FailedJobsTable';
-import { BatchResultTopCardSection } from '@components/admin/BatchResultTopCardSection';
-import { InvalidJobsTable } from './InvalidJobsTable';
+import { BatchResultDashboardTable } from '@components/admin/batch/BatchResultDashboardTable';
+import { FailedJobsTable } from '@components/admin/batch/FailedJobsTable';
+import { BatchResultTopCardSection } from '@components/admin/batch/BatchResultTopCardSection';
+import { InvalidJobsTable } from '@components/admin/batch/InvalidJobsTable';
 
 // '배치 결과' 페이지
 export function BatchResultDashboard() {

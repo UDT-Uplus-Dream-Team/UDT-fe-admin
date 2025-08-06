@@ -9,15 +9,16 @@ import {
 } from '@components/ui/table';
 import { Badge } from '@components/ui/badge';
 import { Button } from '@components/ui/button';
-import { requestTypeConfigInBatchJobList } from '@type/admin/batch';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { BatchJobDetailDialog } from '@components/admin/BatchJobDetailDialog';
+import { BatchJobDetailDialog } from '@components/admin/batch/BatchJobDetailDialog';
 import { useGetBatchJobList } from '@hooks/admin/useGetBatchJobList';
 import { useQueryErrorToast } from '@hooks/useQueryErrorToast';
-import { JobTypeDropdown } from './JobTypeDropDown';
+import { requestTypeConfigInBatchJobList } from '@type/admin/batch';
+import { useDeleteInvalidJobs } from '@hooks/admin/useDeleteInvalidJobs';
+import { JobTypeDropdown } from '@components/admin/batch/JobTypeDropDown';
 
-// 배치 대기열에서 배치 목록을 보여주는 테이블
-export function BatchRequestQueueTable() {
+// 배치 대기열에서 무효한 배치(INVALID) 목록을 보여주는 테이블
+export function InvalidJobsTable() {
   const [filterJobType, setFilterJobType] = useState<string>('전체'); // 선택된 "필터링" 옵션
   const [selectedJobType, setSelectedJobType] = useState<string>('REGISTER');
   const [isDialogOpen, setIsDialogOpen] = useState(false); // 상세보기 모달 창 열기 위한 상태 관리
@@ -25,12 +26,14 @@ export function BatchRequestQueueTable() {
   const observerRef = useRef<IntersectionObserver | null>(null); // 무한 스크롤 처리를 위한 Intersection Observer 설정
   const loadMoreRef = useRef<HTMLDivElement | null>(null); // 무한 스크롤 트리거용 요소 추적을 위한 ref
 
-  const batchJobListQuery = useGetBatchJobList({ type: 'PENDING' }); // 배치 대기열 목록 조회 훅
+  const batchJobListQuery = useGetBatchJobList({ type: 'INVALID' }); // 실패한 배치 목록 조회 훅
+  const { mutate: deleteInvalidJobs, isPending: isDeletingInvalidJobs } =
+    useDeleteInvalidJobs(); // 무효화된 배치 삭제 훅
 
   // 에러 토스트 띄우기
   useQueryErrorToast(
     batchJobListQuery,
-    '배치 대기열 목록 조회 중 오류가 발생했습니다.',
+    '무효화된 배치 목록 조회 중 오류가 발생했습니다.',
   );
 
   // batchJobListQuery에서 제공하는 객체 가져오기
@@ -84,13 +87,32 @@ export function BatchRequestQueueTable() {
     <Card className="max-h-[600px] flex flex-col py-4 px-2">
       <CardHeader className="flex-shrink-0">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-bold">배치 대기열 목록</CardTitle>
-          {/* 요청 타입 필터링 드롭다운 */}
-          <JobTypeDropdown
-            options={jobTypeOptions}
-            value={filterJobType}
-            onChange={setFilterJobType}
-          />
+          <CardTitle className="text-lg font-bold">
+            무효화된 배치 목록
+          </CardTitle>
+
+          {/* 필터 드롭다운 */}
+          <div className="flex items-center gap-2">
+            <JobTypeDropdown
+              options={jobTypeOptions}
+              value={filterJobType}
+              onChange={setFilterJobType}
+            />
+            {/* 삭제 버튼 */}
+            <Button
+              variant="destructive"
+              disabled={
+                !filteredJobs ||
+                filteredJobs.length === 0 ||
+                isDeletingInvalidJobs
+              }
+              className="ml-2"
+              // 실제 삭제 함수 연결
+              onClick={() => deleteInvalidJobs()}
+            >
+              {isDeletingInvalidJobs ? '삭제 중...' : '삭제하기'}
+            </Button>
+          </div>
         </div>
       </CardHeader>
       <CardContent className="flex-1 min-h-0 overflow-y-auto">
@@ -120,7 +142,7 @@ export function BatchRequestQueueTable() {
         {status === 'success' &&
           (!filteredJobs || filteredJobs.length === 0) && (
             <div className="flex flex-1 flex-col justify-center items-center py-8 text-gray-400">
-              <span>조건에 맞는 배치 대기열이 없습니다.</span>
+              <span>조건에 맞는 무효화된 배치 목록이 없습니다.</span>
               {/* 필터 초기화하는 버튼 하나 추가 (필터가 전체가 아닐 때만) */}
               {filterJobType !== '전체' && (
                 <>
@@ -147,9 +169,9 @@ export function BatchRequestQueueTable() {
                 <TableRow className="sticky top-0 z-10 bg-white">
                   <TableHead>요청 ID</TableHead>
                   <TableHead>요청 타입</TableHead>
-                  <TableHead>요청자</TableHead>
+                  <TableHead>요청자 ID</TableHead>
                   <TableHead>생성 시간</TableHead>
-                  <TableHead>수행 예정 시간</TableHead>
+                  <TableHead>실패 시각</TableHead>
                   <TableHead>상태</TableHead>
                   <TableHead>상세보기</TableHead>
                 </TableRow>
@@ -164,7 +186,7 @@ export function BatchRequestQueueTable() {
                       <TableCell>{request.jobType}</TableCell>
                       <TableCell>{request.memberId}</TableCell>
                       <TableCell>{request.createdAt}</TableCell>
-                      <TableCell>{request.scheduledAt}</TableCell>
+                      <TableCell>{request.finishedAt}</TableCell>
                       <TableCell>
                         <Badge
                           className={`${

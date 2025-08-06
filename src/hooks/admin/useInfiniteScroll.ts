@@ -2,8 +2,8 @@
 
 import { useRef } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { getUserList } from '@/lib/apis/admin/getUserList';
-import { CursorPageResponse, User } from '@/types/admin/user';
+import { getUserList } from '@lib/apis/admin/getUserList';
+import { CursorPageResponse, User } from '@type/admin/user';
 
 export function useInfiniteUsers(keyword: string) {
   // 무한스크롤 트리거에 사용할 ref (Intersection Observer용)

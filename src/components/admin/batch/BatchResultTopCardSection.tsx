@@ -1,23 +1,21 @@
-import { useMemo } from 'react';
-import { useGetBatchRequestQueueStatistics } from '@/hooks/admin/useGetBatchRequestQueueStatistics';
+// import { useMemo } from 'react';
+import { useGetBatchResultStatistics } from '@hooks/admin/useGetBatchResultStatistics';
 import { useQueryErrorToast } from '@hooks/useQueryErrorToast';
-import {
-  batchRequestQueueKeys,
-  batchTopCardDataConfigMap,
-} from '@type/admin/batch';
-import { BatchChartCardSectionBody } from '@components/admin/BatchChartCardSectionBody';
+import { batchResultKeys, batchTopCardDataConfigMap } from '@type/admin/batch';
 import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card';
 import { ChartConfig } from '@components/ui/chart';
+import { BatchChartCardSectionBody } from '@components/admin/batch/BatchChartCardSectionBody';
+import { useMemo } from 'react';
 
-// '배치 대기열' 페이지에서 보여 줄 통계 data를 차트로 표현하는 컴포넌트
-export function BatchRequestQueueTopCardSection() {
-  const batchRequestQueueStatisticsQuery = useGetBatchRequestQueueStatistics(); // '배치 대기열' 통계 조회 훅
-  useQueryErrorToast(batchRequestQueueStatisticsQuery); // 에러 토스트 메시지 표시를 위한 custom Hook
-  const { data, status } = batchRequestQueueStatisticsQuery; // '배치 대기열' 통계 데이터
+// '배치 결과' 페이지에서 보여 줄 통계 data를 차트로 표현하는 컴포넌트
+export function BatchResultTopCardSection() {
+  const batchResultStatisticsQuery = useGetBatchResultStatistics(); // '배치 결과' 통계 조회 훅
+  useQueryErrorToast(batchResultStatisticsQuery); // 에러 토스트 메시지 표시를 위한 custom Hook
 
-  // 차트에 표시할 chartConfig 값 설정 (shadcn/ui에서 Chart 컴포넌트 사용을 위해 필요)
+  const { data, status } = batchResultStatisticsQuery; // '배치 결과' 통계 데이터
   const chartConfig = Object.fromEntries(
-    batchRequestQueueKeys.map((key) => [
+    // 차트에 표시할 chartConfig 값 설정 (shadcn/ui에서 Chart 컴포넌트 사용을 위해 필요)
+    batchResultKeys.map((key) => [
       key,
       {
         label: batchTopCardDataConfigMap[key].label,
@@ -30,10 +28,10 @@ export function BatchRequestQueueTopCardSection() {
   const chartData = useMemo(() => {
     if (!data) return [];
     return [
-      { name: 'total', value: data.total },
-      { name: 'totalRegister', value: data.totalRegister },
-      { name: 'totalUpdate', value: data.totalUpdate },
-      { name: 'totalDelete', value: data.totalDelete },
+      { name: 'totalRead', value: data?.totalRead },
+      { name: 'totalCompleted', value: data?.totalCompleted },
+      { name: 'totalInvalid', value: data?.totalInvalid },
+      { name: 'totalFailed', value: data?.totalFailed },
     ];
   }, [data]);
 
@@ -45,13 +43,13 @@ export function BatchRequestQueueTopCardSection() {
   }, [chartData]);
 
   return (
-    <Card className="w-full py-4 px-2">
+    <Card className="w-full py-4 px-2 min-h-[200px]">
       <CardHeader>
         <CardTitle className="text-xl font-semibold">
-          배치 대기열 전체 현황
+          배치 결과 전체 현황
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex-1 items-center justify-center">
+      <CardContent>
         {/* 1. 로딩 중 */}
         {status === 'pending' && (
           <div className="flex flex-1 justify-center items-center py-8 text-gray-400">
@@ -69,11 +67,11 @@ export function BatchRequestQueueTopCardSection() {
         {/* 3. 데이터가 비어 있거나, 모든 값이 0인 경우 */}
         {status === 'success' && isAllZero && (
           <div className="flex flex-1 justify-center items-center py-8 text-gray-400 h-32">
-            배치 대기열에 대한 데이터가 없습니다.
+            배치 결과에 대한 데이터가 없습니다.
           </div>
         )}
 
-        {/* 4. 데이터가 있는 경우 */}
+        {/* 4. 정상 */}
         {status === 'success' && !isAllZero && (
           <BatchChartCardSectionBody
             chartConfig={chartConfig}

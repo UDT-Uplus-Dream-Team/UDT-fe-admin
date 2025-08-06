@@ -4,11 +4,12 @@ import { useState } from 'react';
 import { LogOut } from 'lucide-react';
 import { Button } from '@components/ui/button';
 import AdminDashboard from '@components/admin/AdminDashboard';
-import { BatchRequestQueueDashboard } from '@components/admin/BatchRequestQueueDashboard';
+import { BatchRequestQueueDashboard } from '@components/admin/batch/BatchRequestQueueDashboard';
 import { SmoothExpandableSidebar } from '@components/admin/SmoothExpandableSidebar';
-import UserManagement from '@/components/admin/userManagement/UserManagement';
-import { BatchResultDashboard } from '@components/admin/BatchResultDashboard';
+import UserManagement from '@components/admin/userManagement/UserManagement';
+import { BatchResultDashboard } from '@components/admin/batch/BatchResultDashboard';
 import Image from 'next/image';
+import { useLogoutHandler } from '@hooks/useLogoutHandler';
 
 // 탭 종류 정의
 type TabType =
@@ -44,6 +45,7 @@ const tabConfig = {
 // 관리 페이지의 최상단 컴포넌트
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<TabType>('content-management'); // 현재 활성화된 탭
+  const { handleLogout } = useLogoutHandler();
 
   const currentTab = tabConfig[activeTab]; // 현재 탭에 관한 정보 포함하는 객체
   const CurrentComponent = currentTab.component; // 현재 탭에 관한 컴포넌트
@@ -74,7 +76,7 @@ export default function AdminPage() {
         <Button
           variant="outline"
           size="sm"
-          onClick={() => {}}
+          onClick={handleLogout}
           className="flex items-center gap-2"
         >
           <LogOut className="w-4 h-4" />

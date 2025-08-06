@@ -13,7 +13,7 @@ import {
   ChartTooltipContent,
 } from '@components/ui/chart';
 import { PieChart, Pie, Cell } from 'recharts';
-import { CHART_COLORS } from '@/constants';
+import { CHART_COLORS } from '@constants/index';
 import { useMemo } from 'react';
 import { CategoryMetric } from '@type/admin/CategoryMetric';
 

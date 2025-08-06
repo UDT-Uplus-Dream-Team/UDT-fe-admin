@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Clock, FileText, FolderCheck, Users } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from '@lib/utils';
 
 // 탭 종류 정의
 type TabType =

@@ -1,5 +1,5 @@
-import { BatchRequestQueueTable } from '@components/admin/BatchRequestQueueTable';
-import { BatchRequestQueueTopCardSection } from '@components/admin/BatchRequestQueueTopCardSection';
+import { BatchRequestQueueTable } from '@components/admin/batch/BatchRequestQueueTable';
+import { BatchRequestQueueTopCardSection } from '@components/admin/batch/BatchRequestQueueTopCardSection';
 
 // 배치 처리를 위해 pending 중인 job 목록들을 보여주는 "배치 대기열" 페이지
 export function BatchRequestQueueDashboard() {
