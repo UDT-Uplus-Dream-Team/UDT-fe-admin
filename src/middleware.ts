@@ -91,7 +91,7 @@ async function reissueTokenWithRetry(
     try {
       const cookieHeader = request.headers.get('cookie') || '';
 
-      const response = await fetch(`${API_BASE_URL}/api/auth/reissue/token`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/reissue/token`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
