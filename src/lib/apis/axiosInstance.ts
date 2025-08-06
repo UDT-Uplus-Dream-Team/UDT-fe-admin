@@ -23,8 +23,7 @@ const reissueToken = async (): Promise<boolean> => {
       { withCredentials: true },
     );
     return response.status === 204;
-  } catch (error) {
-    console.log(error);
+  } catch {
     return false;
   }
 };
