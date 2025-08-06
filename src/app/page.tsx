@@ -51,7 +51,7 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background transition-all duration-300 ease-out">
       {/* 동적 헤더 */}
-      <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4">
+      <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4">
         <div className="flex flex-row justify-start items-center">
           <Image
             src="/icons/firefly-adminpage-logo.png"
