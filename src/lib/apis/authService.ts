@@ -14,6 +14,6 @@ export const authService = {
    * 로그아웃 요청
    */
   logout: async (): Promise<void> => {
-    await axiosInstance.post('/api/auth/logout');
+    await axiosInstance.post('/api/admin/logout');
   },
 };
