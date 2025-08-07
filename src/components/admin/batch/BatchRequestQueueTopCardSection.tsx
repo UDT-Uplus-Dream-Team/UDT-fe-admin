@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-import { useGetBatchRequestQueueStatistics } from '@/hooks/admin/useGetBatchRequestQueueStatistics';
+import { useGetBatchRequestQueueStatistics } from '@hooks/admin/useGetBatchRequestQueueStatistics';
 import { useQueryErrorToast } from '@hooks/useQueryErrorToast';
 import {
   batchRequestQueueKeys,
   batchTopCardDataConfigMap,
 } from '@type/admin/batch';
-import { BatchChartCardSectionBody } from '@components/admin/BatchChartCardSectionBody';
+import { BatchChartCardSectionBody } from '@components/admin/batch/BatchChartCardSectionBody';
 import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card';
 import { ChartConfig } from '@components/ui/chart';
 

@@ -24,7 +24,5 @@ export const getJobDetail = async (
     `/api/admin/batch/contents/${kind}/${jobId}`,
   );
 
-  console.log('data', JSON.stringify(data, null, 2)); // 예쁘게 들여쓰기
-
   return JSON.stringify(data, null, 2); // 들여쓰기 2칸
 };

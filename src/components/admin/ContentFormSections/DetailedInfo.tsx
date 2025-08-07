@@ -11,7 +11,7 @@ import {
 } from '@components/ui/select';
 import { Badge } from '@components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card';
-import { CONTENT_CATEGORIES, COUNTRIES } from '@/constants';
+import { CONTENT_CATEGORIES, COUNTRIES } from '@constants/index';
 import { getGenresByCategory } from '@lib/genres';
 import type { ContentWithoutId } from '@type/admin/Content';
 

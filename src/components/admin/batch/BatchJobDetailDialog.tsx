@@ -1,5 +1,5 @@
-import { useGetJobDetail } from '@/hooks/admin/useGetJobDetail';
-import { useQueryErrorToast } from '@/hooks/useQueryErrorToast';
+import { useGetJobDetail } from '@hooks/admin/useGetJobDetail';
+import { useQueryErrorToast } from '@hooks/useQueryErrorToast';
 import {
   Dialog,
   DialogContent,

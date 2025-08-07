@@ -28,7 +28,7 @@ import { useGetContentDetail } from '@hooks/admin/useGetContentDetail';
 import { useMutationErrorToast } from '@hooks/useMutationErrorToast';
 import ContentForm from '@components/admin/ContentForm';
 import ContentCard from '@components/admin/ContentCard';
-import CategoryChart from '@/components/admin/CategoryChart';
+import CategoryChart from '@components/admin/CategoryChart';
 import ContentDetail from '@components/admin/ContentDetail';
 import SearchFilter from '@components/admin/SearchFilter';
 import { useGetCategoryMetrics } from '@hooks/admin/useGetCategoryMetrics';

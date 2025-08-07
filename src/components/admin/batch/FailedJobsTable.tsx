@@ -10,12 +10,12 @@ import {
 import { Badge } from '@components/ui/badge';
 import { Button } from '@components/ui/button';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { BatchJobDetailDialog } from '@components/admin/BatchJobDetailDialog';
+import { BatchJobDetailDialog } from '@components/admin/batch/BatchJobDetailDialog';
 import { useGetBatchJobList } from '@hooks/admin/useGetBatchJobList';
 import { useQueryErrorToast } from '@hooks/useQueryErrorToast';
 import { requestTypeConfigInBatchJobList } from '@type/admin/batch';
 import { usePostRetryFailedJobs } from '@hooks/admin/usePostRetryFailedJobs';
-import { JobTypeDropdown } from '@components/admin/JobTypeDropDown';
+import { JobTypeDropdown } from '@components/admin/batch/JobTypeDropDown';
 
 // 배치 대기열에서 배치 목록을 보여주는 테이블
 export function FailedJobsTable() {

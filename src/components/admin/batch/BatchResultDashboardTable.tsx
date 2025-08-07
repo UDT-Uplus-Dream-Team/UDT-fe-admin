@@ -10,9 +10,9 @@ import {
 import { Badge } from '@components/ui/badge';
 import { getRequestTypeConfigInBatchResult } from '@utils/getRequestTypeConfigInBatchResult';
 import { useBatchResults } from '@hooks/admin/useGetBatchResults';
-import { useQueryErrorToast } from '@/hooks/useQueryErrorToast';
+import { useQueryErrorToast } from '@hooks/useQueryErrorToast';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { JobTypeDropdown } from '@components/admin/JobTypeDropDown';
+import { JobTypeDropdown } from '@components/admin/batch/JobTypeDropDown';
 
 // 각 batch ID에 대해 배치 결과를 보여주는 테이블
 export function BatchResultDashboardTable() {
@@ -91,7 +91,7 @@ export function BatchResultDashboardTable() {
     // 3. 데이터 없음 (data가 배열일 경우 대응)
     if (resultArray.length === 0) {
       return (
-        <div className="flex items-center justify-center h-full min-h-[120px]">
+        <div className="flex items-center justify-center h-full min-h-[120px] text-gray-400">
           <span>데이터가 없습니다.</span>
         </div>
       );
