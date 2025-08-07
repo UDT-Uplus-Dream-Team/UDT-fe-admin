@@ -1,6 +1,7 @@
 // ✅ components/chart/SummaryStats.tsx
 'use client';
 
+import { mergeGenreFeedbacks } from '@utils/admin/genres';
 import { UserDetail } from '@type/admin/user';
 
 interface SummaryStatsProps {
@@ -13,9 +14,9 @@ export default function SummaryStats({ userDetail }: SummaryStatsProps) {
     userDetail;
 
   // 활동한 장르 수 계산 (합이 0보다 큰 장르만 카운트)
-  const totalGenres = genres.filter(
-    (g) => g.likeCount + g.dislikeCount + g.uninterestedCount > 0,
-  ).length;
+  const mergedGenres = mergeGenreFeedbacks(genres);
+  // 활동한 장르 수 (합계가 0 초과인 것만 카운트)
+  const totalGenres = mergedGenres.filter((g) => g.total > 0).length;
 
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4 ">

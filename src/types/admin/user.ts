@@ -45,3 +45,8 @@ export type adminGenre = {
   label: string;
   id: string;
 };
+
+export interface WithTotalGenreFeedback extends GenreFeedback {
+  genreName: string;
+  total: number;
+}

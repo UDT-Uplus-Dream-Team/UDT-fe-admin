@@ -1,7 +1,7 @@
 'use client';
 
 import { GenreFeedback } from '@type/admin/user';
-import { getGenreLabel } from '@utils/admin/genres';
+import { mergeGenreFeedbacks } from '@utils/admin/genres';
 import {
   BarChart,
   Bar,
@@ -25,15 +25,10 @@ interface GenreBarChartProps {
 }
 
 export default function GenreBarChart({ genres }: GenreBarChartProps) {
-  const chartData = genres
-    .map((genre) => ({
-      ...genre,
-      genreName: getGenreLabel(genre.genreType),
-      total: genre.likeCount + genre.dislikeCount + genre.uninterestedCount,
-    }))
-    .filter((g) => g.total > 0) // 총합 0인 항목 제거
-    .sort((a, b) => b.total - a.total) // 총합 기준 내림차순 정렬
-    .slice(0, 10); // 상위 10개 항목만 시각화
+  const chartData = mergeGenreFeedbacks(genres)
+    .filter((g) => g.total > 0)
+    .sort((a, b) => b.total - a.total)
+    .slice(0, 10);
 
   //튤팁을 통한 실제 값 자세히보기 컴포넌트
   const CustomTooltip = ({

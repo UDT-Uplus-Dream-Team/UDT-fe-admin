@@ -191,16 +191,8 @@ export default function AdminDashboard() {
   );
 
   return (
-    <div className="h-screen overflow-y-auto bg-gray-50 p-6">
+    <div className="h-screen overflow-y-auto bg-white p-6">
       <div className="mx-auto max-w-5xl space-y-6">
-        {/* 헤더 */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            백오피스 관리자 페이지
-          </h1>
-          <p className="text-gray-600">콘텐츠 현황 및 관리</p>
-        </div>
-
         {/* 콘텐츠 분포 차트 */}
         <div className="w-full flex justify-center">
           <div className="w-full max-w-5xl">
