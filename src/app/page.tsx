@@ -58,9 +58,10 @@ export default function AdminPage() {
           <Image
             src="/icons/firefly-adminpage-logo.png"
             alt="logo"
-            width={40}
-            height={40}
-            className="h-full w-auto object-contain mr-4"
+            width={48}
+            height={48}
+            className="object-contain mr-4"
+            unoptimized
           />
           <div className="flex flex-col">
             <h1 className="text-xl font-semibold text-foreground leading-tight">

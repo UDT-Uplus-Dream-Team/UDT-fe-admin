@@ -7,7 +7,7 @@ export const postUploadImages = (files: File[]) => {
   });
 
   return axiosInstance.post<{ uploadedFileUrls: string[] }>(
-    '/api/files/images',
+    '/api/admin/files/images',
     formData,
     {
       headers: {
