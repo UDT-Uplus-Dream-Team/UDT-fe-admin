@@ -3,7 +3,11 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { ThumbsUp, ThumbsDown } from 'lucide-react';
 import { useMemo } from 'react';
-import { getGenreColor, getGenreLabel } from '@utils/admin/genres';
+import {
+  getGenreColor,
+  getGenreLabel,
+  mergeGenreFeedbacks,
+} from '@utils/admin/genres';
 import { GenreFeedback } from '@type/admin/user';
 
 // 좋아요,싫어요 분포 차트
@@ -14,8 +18,10 @@ interface GenrePieChartProps {
 }
 
 export default function GenrePieChart({ genres, type }: GenrePieChartProps) {
+  const mergedGenres = useMemo(() => mergeGenreFeedbacks(genres), [genres]);
+
   const filtered = useMemo(() => {
-    return genres
+    return mergedGenres
       .filter((g) => {
         const count = type === 'like' ? g.likeCount : g.dislikeCount;
         return count > 0;
@@ -26,7 +32,7 @@ export default function GenrePieChart({ genres, type }: GenrePieChartProps) {
         return bVal - aVal;
       })
       .slice(0, 10);
-  }, [genres, type]);
+  }, [mergedGenres, type]);
 
   const total = filtered.reduce(
     (sum, g) => sum + (type === 'like' ? g.likeCount : g.dislikeCount),
