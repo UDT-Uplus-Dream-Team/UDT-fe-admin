@@ -1,4 +1,8 @@
-import { adminGenre } from '@type/admin/user';
+import {
+  adminGenre,
+  GenreFeedback,
+  WithTotalGenreFeedback,
+} from '@type/admin/user';
 
 //장르 목록 정의
 export const GENRES: adminGenre[] = [
@@ -71,3 +75,40 @@ export const GENRE_COLOR_MAP: Record<string, string> = {
 
 export const getGenreColor = (raw: string) =>
   GENRE_COLOR_MAP[raw.toUpperCase().replace(/-/g, '_')] || '#CCCCCC';
+
+export const mergeGenreFeedbacks = (
+  genres: GenreFeedback[],
+): WithTotalGenreFeedback[] => {
+  const mergedMap = new Map<string, WithTotalGenreFeedback>();
+
+  for (const genre of genres) {
+    const genreName = getGenreLabel(genre.genreType); // 예: '코미디'
+
+    const existing = mergedMap.get(genreName);
+
+    if (existing) {
+      mergedMap.set(genreName, {
+        genreType: genre.genreType, // 그냥 하나만 유지
+        genreName,
+        likeCount: existing.likeCount + genre.likeCount,
+        dislikeCount: existing.dislikeCount + genre.dislikeCount,
+        uninterestedCount: existing.uninterestedCount + genre.uninterestedCount,
+        total:
+          existing.likeCount +
+          genre.likeCount +
+          existing.dislikeCount +
+          genre.dislikeCount +
+          existing.uninterestedCount +
+          genre.uninterestedCount,
+      });
+    } else {
+      mergedMap.set(genreName, {
+        ...genre,
+        genreName,
+        total: genre.likeCount + genre.dislikeCount + genre.uninterestedCount,
+      });
+    }
+  }
+
+  return Array.from(mergedMap.values());
+};

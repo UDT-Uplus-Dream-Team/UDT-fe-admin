@@ -1,7 +1,7 @@
 'use client';
 
 import { GenreFeedback } from '@type/admin/user';
-import { getGenreLabel } from '@utils/admin/genres';
+import { mergeGenreFeedbacks } from '@utils/admin/genres';
 
 interface GenreListProps {
   genres: GenreFeedback[];
@@ -9,12 +9,7 @@ interface GenreListProps {
 
 //전체 목록 차트
 export default function GenreList({ genres }: GenreListProps) {
-  const chartData = genres
-    .map((g) => ({
-      ...g,
-      genreName: getGenreLabel(g.genreType),
-      total: g.likeCount + g.dislikeCount + g.uninterestedCount,
-    }))
+  const chartData = mergeGenreFeedbacks(genres)
     .filter((g) => g.total > 0)
     .sort((a, b) => b.total - a.total);
 
