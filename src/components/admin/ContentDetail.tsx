@@ -98,7 +98,7 @@ export default function ContentDetail({
               </Card>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Card>
+                <Card className="min-h-[90px]">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 mt-3">
                       <Users className="h-5 w-5" />
@@ -112,21 +112,15 @@ export default function ContentDetail({
                           key={director.directorId}
                           className="flex items-center gap-3 p-3 border rounded-lg"
                         >
-                          {director.directorImageUrl ? (
-                            <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0">
-                              <Image
-                                src={director.directorImageUrl}
-                                alt={director.directorName || '출연진 이미지'}
-                                fill
-                                unoptimized
-                                className="object-cover"
-                              />
-                            </div>
-                          ) : (
-                            <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-                              <Users className="h-6 w-6 text-gray-400" />
-                            </div>
-                          )}
+                          <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0">
+                            <Image
+                              src={director.directorImageUrl}
+                              alt={director.directorName || '감독 이미지'}
+                              fill
+                              unoptimized
+                              className="object-cover"
+                            />
+                          </div>
                           <div>
                             <div className="font-medium">
                               {director.directorName}
@@ -138,7 +132,7 @@ export default function ContentDetail({
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="min-h-[90px]">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 mt-3">
                       <Globe className="h-5 w-5" />
@@ -162,18 +156,22 @@ export default function ContentDetail({
                   <CardTitle className="mt-3">장르</CardTitle>
                 </CardHeader>
                 <CardContent>
+                  {/* 모든 카테고리 타입 표시 */}
                   <div className="flex flex-wrap gap-2 mb-3">
                     {content.categories.map((category, catIndex) => (
-                      <div key={catIndex} className="flex flex-wrap gap-1 mb-3">
-                        <Badge className="bg-blue-100 text-blue-800">
-                          {category.categoryType}
-                        </Badge>
-                        {category.genres.map((genre, genreIndex) => (
-                          <Badge key={genreIndex} variant="secondary">
-                            {genre}
-                          </Badge>
-                        ))}
-                      </div>
+                      <Badge
+                        key={catIndex}
+                        className="bg-blue-100 text-blue-800"
+                      >
+                        {category.categoryType}
+                      </Badge>
+                    ))}
+
+                    {/* 첫 번째 카테고리의 장르만 표시 */}
+                    {content.categories[0]?.genres.map((genre, genreIndex) => (
+                      <Badge key={genreIndex} variant="secondary">
+                        {genre}
+                      </Badge>
                     ))}
                   </div>
                 </CardContent>
@@ -192,21 +190,15 @@ export default function ContentDetail({
                         key={cast.castId}
                         className="flex items-center gap-3 p-3 border rounded-lg"
                       >
-                        {cast.castImageUrl ? (
-                          <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0">
-                            <Image
-                              src={cast.castImageUrl}
-                              alt={cast.castName || '출연진 이미지'}
-                              fill
-                              unoptimized
-                              className="object-cover"
-                            />
-                          </div>
-                        ) : (
-                          <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-                            <Users className="h-6 w-6 text-gray-400" />
-                          </div>
-                        )}
+                        <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0">
+                          <Image
+                            src={cast.castImageUrl}
+                            alt={cast.castName || '출연진 이미지'}
+                            fill
+                            unoptimized
+                            className="object-cover"
+                          />
+                        </div>
                         <div>
                           <div className="font-medium">{cast.castName}</div>
                         </div>

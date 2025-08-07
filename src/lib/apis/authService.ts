@@ -1,5 +1,5 @@
 import axiosInstance from './axiosInstance';
-import { UserProfile } from '@/types/auth/UserProfile'; // 필요 시 경로 수정
+import { UserProfile } from '@type/auth/UserProfile'; // 필요 시 경로 수정
 
 export const authService = {
   /**
@@ -14,6 +14,6 @@ export const authService = {
    * 로그아웃 요청
    */
   logout: async (): Promise<void> => {
-    await axiosInstance.post('/api/auth/logout');
+    await axiosInstance.post('/api/admin/logout');
   },
 };

@@ -1,6 +1,6 @@
 // src/hooks/useLogoutHandler.ts
 import { useRouter } from 'next/navigation';
-import { authService } from '@/lib/apis/authService';
+import { authService } from '@lib/apis/authService';
 import {
   showSimpleToast,
   showInteractiveToast,

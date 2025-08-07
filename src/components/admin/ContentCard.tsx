@@ -29,7 +29,7 @@ function ContentCard({ content, onView, onEdit, onDelete }: ContentCardProps) {
       message: '정말로 이 콘텐츠를 삭제하시겠습니까?',
       confirmText: '삭제',
       cancelText: '취소',
-      className: 'border',
+      className: 'border bg-white',
       onConfirm: async () => {
         try {
           await onDelete(content.contentId);
