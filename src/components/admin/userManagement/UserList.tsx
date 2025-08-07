@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card';
 import UserCard from '@components/admin/userManagement/UserCard';
 import { User } from '@type/admin/user';
 
@@ -34,10 +28,6 @@ export default function UserList({
           <CardTitle className="text-xl font-semibold text-gray-900">
             등록된 회원 목록
           </CardTitle>
-          <CardDescription className="text-gray-500">
-            {/*나중에 count int로 주면 그때 타입 수정 및 아래 받는 값 수정 */}
-            전체 {users.length}명의 회원
-          </CardDescription>
         </div>
       </CardHeader>
 

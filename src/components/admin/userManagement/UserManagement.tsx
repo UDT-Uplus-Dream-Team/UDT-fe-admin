@@ -52,17 +52,8 @@ export default function UserManagement() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-white p-6">
       <div className="mx-auto max-w-6xl space-y-6">
-        {/* 헤더 */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            회원 정보 관리
-          </h1>
-          <p className="text-gray-600">
-            회원 현황 및 유저별 선호 장르 통계 확인
-          </p>
-        </div>
         {/* 키워드 검색*/}
         <div className="flex justify-end items-center gap-2 mb-4">
           <Label htmlFor="user-search">검색:</Label>
